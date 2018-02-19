@@ -25,7 +25,7 @@ fn inside_repo() -> bool {
 fn is_clean() -> bool {
     let output = git_cmd(vec!["status", "--short"]);
 
-    if output == "\n" {
+    if output == "" {
         true
     } else {
         false
@@ -66,6 +66,5 @@ fn build_prompt() -> String {
 
 
 fn main() {
-    println!("{}", build_prompt());
-    println!("{}", is_clean());
+    print!("{}", build_prompt());
 }

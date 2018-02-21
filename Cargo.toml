@@ -1,6 +1,6 @@
 [package]
 name = "git-prompt-helper"
 version = "0.1.0"
-authors = ["Tronje Krabbe <tronje.krabbe@phraseapp.com>"]
+authors = ["Tronje Krabbe <hi@tron.je>"]
 
 [dependencies]

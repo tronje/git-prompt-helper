@@ -58,13 +58,12 @@ fn branch_info() -> String {
     } else if status.starts_with("HEAD detached at") {
         // "HEAD detached at <commithash>" -> index 3
         status.split_whitespace().collect::<Vec<&str>>()[3].to_owned()
-    }
-    else if status.starts_with("rebase in progress") {
+    } else if status.starts_with("rebase in progress") {
         // "rebase in progress; onto <commithash>"
         String::from("rebasing")
     } else {
         // There aren't any other possible outputs of `git status`... I think.
-        panic!("Invalid git state!");
+        String::from("error")
     }
 }
 

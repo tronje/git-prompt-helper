@@ -61,6 +61,9 @@ fn branch_info() -> String {
     } else if status.starts_with("rebase in progress") {
         // "rebase in progress; onto <commithash>"
         String::from("rebasing")
+    } else if status.starts_with("interactive rebase in progress") {
+        // "interactive rebase in progress; onto <commithash>"
+        String::from("rebasing (interactive)")
     } else {
         // There aren't any other possible outputs of `git status`... I think.
         String::from("error")

@@ -37,10 +37,11 @@ fn main() {
         Err(_) => return,
     };
 
-    let clean_indicator = match repo.statuses(None).unwrap().is_empty() {
-        true => "",
-        false => "!",
-    };
+    // Doesn't work as expected
+    // let clean_indicator = match repo.statuses(None).unwrap().is_empty() {
+    //     true => "",
+    //     false => "!",
+    // };
 
     let branch_name;
 
@@ -62,8 +63,5 @@ fn main() {
         RepositoryState::ApplyMailboxOrRebase => "apply-mailbox-or-rebase",
     };
 
-    print!(
-        "[%F{{yellow}}{}%f%F{{red}}{}%f] ",
-        branch_info, clean_indicator
-    );
+    print!("[%F{{yellow}}{}%f] ", branch_info);
 }

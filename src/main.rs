@@ -1,6 +1,6 @@
 use std::env;
 
-use git2::{Branch, Repository, RepositoryOpenFlags, RepositoryState};
+use git2::{Repository, RepositoryOpenFlags, RepositoryState};
 
 fn get_ref_name(repo: &Repository) -> String {
     if repo.is_empty().unwrap() {
@@ -9,21 +9,16 @@ fn get_ref_name(repo: &Repository) -> String {
 
     let reference = repo.head().expect("Could not get HEAD reference");
 
-    if reference.is_branch() {
-        Branch::wrap(reference)
-            .name()
-            .unwrap()
-            .expect("Branch name not valid UTF-8!")
-            .to_owned()
-    } else if reference.is_tag() {
-        reference
-            .peel_to_tag()
-            .unwrap()
-            .name()
-            .expect("Tag name is not valid UTF-8!")
-            .to_owned()
+    if reference.is_branch() || reference.is_tag() {
+        String::from(
+            reference
+                .shorthand()
+                .expect("Reference shorthand is not valid UTF-8!"),
+        )
     } else {
-        panic!("Unexpected reference type! {:?}");
+        String::from(hex::encode(
+            &reference.peel_to_commit().unwrap().id().as_bytes()[0..6],
+        ))
     }
 }
 

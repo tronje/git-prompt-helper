@@ -7,7 +7,10 @@ fn get_ref_name(repo: &Repository) -> String {
         return String::from("empty");
     }
 
-    let reference = repo.head().expect("Could not get HEAD reference");
+    let reference = match repo.head() {
+        Ok(head) => head,
+        Err(_) => return String::from("unknown"),
+    };
 
     if reference.is_branch() || reference.is_tag() {
         String::from(

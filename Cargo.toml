@@ -5,5 +5,5 @@ authors = ["Tronje Krabbe <hi@tron.je>"]
 edition = "2018"
 
 [dependencies]
-git2 = "0.13"
+git2 = "0.17"
 hex = "0.4"

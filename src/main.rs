@@ -19,9 +19,7 @@ fn get_ref_name(repo: &Repository) -> String {
                 .expect("Reference shorthand is not valid UTF-8!"),
         )
     } else {
-        String::from(hex::encode(
-            &reference.peel_to_commit().unwrap().id().as_bytes()[0..6],
-        ))
+        hex::encode(&reference.peel_to_commit().unwrap().id().as_bytes()[0..6])
     }
 }
 
@@ -29,7 +27,7 @@ fn main() {
     let repo = match Repository::open_ext(
         env::var("PWD").unwrap(),
         RepositoryOpenFlags::empty(),
-        &[env::var("HOME").unwrap()],
+        [env::var("HOME").unwrap()],
     ) {
         Ok(r) => r,
         Err(_) => return,
@@ -45,7 +43,7 @@ fn main() {
 
     let branch_info = match repo.state() {
         RepositoryState::Clean => {
-            branch_name = get_ref_name(&repo).to_owned();
+            branch_name = get_ref_name(&repo);
             &branch_name
         }
         RepositoryState::Merge => "merging",
